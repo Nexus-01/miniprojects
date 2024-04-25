@@ -1,0 +1,6 @@
+Set up virtual environment:
+  1. python3 -m venv env
+  2. python3 -m pip install pyqt6
+  3. .\env\Scripts\activate
+  4. cd env\
+  run desired program from here.
