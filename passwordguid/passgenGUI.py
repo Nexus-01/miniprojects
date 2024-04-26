@@ -36,7 +36,10 @@ class MainWindow(QMainWindow):
             mode = 'minimum'
             self.selectedcharlength.clear()
             self.selectedcharlength.addItems([str(x+1) for x in range(24)]) # in case 'advanced' or 'standard' was selected, updates dropdown items again to include 1->24
+        else:
+            mode = 'standard' # default mode if none are checked (in this case, uses standard requirements at any character length)
         return mode # pass the security mode to the function calling
+        
     # info dialog window
     def modeinfo(self, s):
         self.infowindow = QMessageBox(self)
