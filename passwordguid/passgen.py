@@ -2,7 +2,7 @@ import string
 import secrets
 
 # function to generate password based on length
-def genPassword(pwlength, mode='standard'):
+def genPassword(pwlength, mode):
     # use mode to determine password complexity
     if mode == 'minimum':
         characters = string.ascii_letters
