@@ -14,8 +14,10 @@ class MainWindow(QMainWindow):
         
     # output generated password if the genButton widget is clicked
     def genButton_clicked(self):
+        self.lengthbefore = self.selectedcharlength.currentText() # sets 'lengthbefore' to currently selected item's text value
         self.generatedpassword.setText(genPassword(self.selectedcharlength.currentText(), self.selectedmode()))
         self.update()
+        self.selectedcharlength.setCurrentText(self.lengthbefore) #updates currently selected item to the value of 'lengthbefore'
     # copy to clipboard
     def copyButton_clicked(self):
         #clipboard.copy(str(self.charlenfield.text()))
@@ -26,16 +28,22 @@ class MainWindow(QMainWindow):
     def selectedmode(self):
         if self.securitymodegroup.checkedId() == -4:
             mode = 'advanced'
+            self.lengthbefore = self.selectedcharlength.currentText() # sets 'lengthbefore' to currently selected item's text value
             self.selectedcharlength.clear()
-            self.selectedcharlength.addItems([str(x+1) for x in range(15, 24)]) # 24 <= minimum length >= 16
+            self.selectedcharlength.addItems([str(x+1) for x in range(15, 24)]) # 24 <= minimum length >= 16\
+            self.selectedcharlength.setCurrentText(self.lengthbefore) #updates currently selected item to the value of 'lengthbefore'
         elif self.securitymodegroup.checkedId() == -3:
             mode = 'standard'
+            self.lengthbefore = self.selectedcharlength.currentText() # sets 'lengthbefore' to currently selected item's text value
             self.selectedcharlength.clear()
             self.selectedcharlength.addItems([str(x+1) for x in range(7, 24)]) # 24 <= minimum length >= 8
+            self.selectedcharlength.setCurrentText(self.lengthbefore) #updates currently selected item to the value of 'lengthbefore'
         elif self.securitymodegroup.checkedId() == -2:
             mode = 'minimum'
+            self.lengthbefore = self.selectedcharlength.currentText() # sets 'lengthbefore' to currently selected item's text value
             self.selectedcharlength.clear()
             self.selectedcharlength.addItems([str(x+1) for x in range(24)]) # in case 'advanced' or 'standard' was selected, updates dropdown items again to include 1->24
+            self.selectedcharlength.setCurrentText(self.lengthbefore) #updates currently selected item to the value of 'lengthbefore'
         else:
             mode = 'standard' # default mode if none are checked (in this case, uses standard requirements at any character length)
         return mode # pass the security mode to the function calling
@@ -80,13 +88,14 @@ class MainWindow(QMainWindow):
         self.selectedcharlength.move(105, 5)
 
 
-
         # checkbox for bare minimum password security
         self.minimalsecurity = QCheckBox("Minimal", self)
         self.minimalsecurity.move(75, 60)
+        
         # checkbox for standard password security
         self.standardsecurity = QCheckBox("Standard", self)
         self.standardsecurity.move(175, 60)
+        
         # checkbox for advanced password security
         self.advancedsecurity = QCheckBox("Advanced", self)
         self.advancedsecurity.move(275, 60)
@@ -108,6 +117,7 @@ class MainWindow(QMainWindow):
         self.generatedpassword.setStyleSheet("background: white;") # set line edit background to white
         self.generatedpassword.move(170,105)
 
+        
         # info button
         self.infobutton = QPushButton('Mode Info', self)
         self.infobutton.setStyleSheet("background: white;")
